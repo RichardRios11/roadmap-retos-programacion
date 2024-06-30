@@ -1,0 +1,79 @@
+'''
+             ********  Extra  *************
+
+'''
+
+def my_agenda():
+    agenda = {}
+
+    def search_name(add="none"):
+        name = input("Ingrese el nombre del contacto: ")
+        if name in agenda:
+            if add=="none":
+                return name
+            else:
+                input(f"El contacto '{name.upper()}' ya existe, presione Enter")
+                return None
+        elif add=="add":
+            return name
+        else:
+            input(f"El contacto '{name.upper()}' no existe, presione Enter")
+            
+
+    def verify_phone(name:str, phone:str, case:str):
+        if phone.isdigit() and len(phone) > 0 and len(phone) <= 11:
+            agenda[name] = phone
+            input(f"El contacto '{name.upper()}' se {"ingreso" if case == "2" else "actualizo"} correctamente, presione Enter ")
+        else:
+            input(f"**Error***, Verifique el numero de telefono '{phone}', presione Enter")
+
+    def search_contact():
+        name= search_name()
+        if name:
+            input(f"El numero de telefono del contacto '{name.upper()}' es '{agenda[name]}', presiones ENTER")
+
+    def add_contact():
+        name = search_name("add")
+        if name != None:
+            phone = input("Ingrese el telefono del contacto: ")
+            verify_phone(name, phone, "2")
+
+    def uppdate_contact():
+        name = search_name()
+        if name:
+            phone = input(f"Actualice el telefono del contacto '{name.upper()}'actualizado: ")
+            verify_phone(name, phone, "3")
+
+    def del_contact():
+        name = search_name()
+        if name:
+            del agenda[name]
+            input(f"El numero de telefono del contacto '{name.upper()}'se ha eliminado, presione ENTER")
+
+    while True:
+        print("")
+        print("****** AGENDA DE TELEFONO ******")
+        print("")                                                
+        print("1.- Buscar contacto")
+        print("2.- Insertar contacto")
+        print("3.- Actualzar contacto")
+        print("4.- Eliminar contacto")                                                       
+        print("5.- Finalizar")                                                                               
+        
+        option = input("\nIngrese su opcion: ")
+        match option:
+            case "1":
+                search_contact()
+            case "2":
+                add_contact()
+            case "3":
+                uppdate_contact()
+            case "4":
+                del_contact()
+            case "5":
+                print("Saliendo de la agenda.")
+                break
+            case _:
+                input("Opcion no valida, elige una opcion del 1 al 5, presione una tecla")
+                
+my_agenda()
